@@ -8,13 +8,33 @@ var command = argv._[0];
 console.log("Command : "+command);
 
 if (command === "add") {
-    notes.addNote();
+    let note = notes.addNote(argv.title, argv.body);
+    if (note) {
+        console.log("Note added successfully");
+    } else {
+        console.log("Note already taken");
+    }
 } else if (command === "read") {
-    notes.readNote();
+    let note = notes.readNote(argv.title);
+    if (note) {
+        console.log("------");
+        console.log("title :"+note.title);
+        console.log("body :"+note.body);
+    } else {
+        console.log("Note not found");
+    }
 } else if (command === "remove") {
-    notes.removeNote();
-} else if (command === "update") {
-    notes.updateNote();
-}else if (command === "list") {
-    notes.listNote();
+    let filteredNotes = notes.removeNote(argv.title);
+    if (filteredNotes) {
+        console.log("Note successfully removed");
+    } else {
+        console.log("Note not found");
+    }
+} else if (command === "list") {
+    let notesList = notes.listNote();
+    notesList.forEach(note => {
+        console.log("------");
+        console.log("title :"+note.title);
+        console.log("body :"+note.body);
+    });
 }
