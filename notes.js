@@ -11,7 +11,9 @@ var fetchNotes = () => {
     let notesString = fs.readFileSync("mynotes.json");
     let notes = JSON.parse(notesString);
     return notes;
-   } catch { return []; }
+   } catch (e) { 
+       return [];
+    }
 }
 
 exports.addNote = (title, body) => {
@@ -52,4 +54,11 @@ exports.listNote = () => {
 
 exports.updateNote = () => {
     console.log("Note updated");
+}
+
+exports.logNote = (note) => {
+    //debugger;
+    console.log("------");
+    console.log("title :"+note.title);
+    console.log("body :"+note.body);
 }
